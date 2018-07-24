@@ -21,6 +21,7 @@ int cordic(int theta,int n)
   register int k, d, tx, ty, tz,z_temp;
   int32_t xy = 0;
   int x=cordic_1K,y=0,z=theta;
+  int cordic_temp = cordic_ctab[0];
   n = (n>CORDIC_NTAB) ? CORDIC_NTAB : n;
   d = z>>15;
   for (k=0; k<n; ++k)
@@ -28,7 +29,8 @@ int cordic(int theta,int n)
     
     //get sign. for other architectures, you might want to use the more portable version
     //d = z>=0 ? 0 : -1;
-    z_temp = z - ((cordic_ctab[k] ^ d) - d);
+    z_temp = z - ((cordic_temp ^ d) - d);
+    cordic_temp = cordic_ctab[k+1];
     tx = x - (((y>>k) ^ d) - d);
     ty = y + (((x>>k) ^ d) - d);
     tz = z_temp;
@@ -49,7 +51,7 @@ int cordic(int theta,int n)
       }   */
     }
     
-    z_temp = z - ((cordic_ctab[k] ^ d) - d);
+    z_temp = z - ((cordic_temp ^ d) - d);
     tx = x - (((y>>k) ^ d) - d);
     ty = y + (((x>>k) ^ d) - d);
     tz = z_temp;
