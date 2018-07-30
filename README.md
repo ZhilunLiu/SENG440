@@ -13,7 +13,7 @@ TO run in arm:
 To see the assembly code in arm:
   /opt/arm/4.3.2/bin/arm-linux-gcc -mfloat-abi=softfp -mfpu=neon -static -O3 -S file.c -lm
   
-
+Notes: Optimized codes are in the Opt_methods folder.
 
 cordic-test.c is the original code
 and all the optimization methods we used are in the Opt_methods folder
